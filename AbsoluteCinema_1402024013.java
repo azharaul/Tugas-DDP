@@ -4,12 +4,19 @@
  */
 import java.util.Scanner;
 public class AbsoluteCinema_1402024013{
-    public static void main(String[] args){
+    public static void temp(){
         byte menu = 0;
         boolean isLogout = false;
         String newFilm;
         String[] arrFilm =  {"5 cm", "Your Name", "Twenty Five Twenty One", "La La Land"};
         String[] arrGuest = new String[5];
+        String[][] arrSitNumber = {
+            {"01","02","03","04","05","06","07","08","09","10"},
+            {"11","12","13","14","15","16","17","18","19","20"},
+            {"21","22","23","24","25","26","27","28","29","30"},
+            {"31","32","33","34","35","36","37","38","39","40"},
+            {"41","42","43","44","45","46","47","48","49","50"},
+        };
         int[] arrAvailableSit = {50, 50, 50, 50};
         printTheMainTitle("Azhar Aulia Priatna", "1402024013");
         Scanner userInput = new Scanner(System.in);
@@ -130,8 +137,18 @@ public class AbsoluteCinema_1402024013{
                 for(int i = 0 ; i < arrGuest.length ; i++){
                     if(arrGuest[i] == null){
                         arrGuest[i] = InputUsername;
+                        break;
                     }
                 }
+                // boolean isValid = false;
+                // for(int i = 0 ; i < arrGuest.length ; i++){
+                //     if(InputUsername.equals(arrGuest[i])){
+                //         isValid = true;
+                //         break;
+                //     }else If(!isFull){
+
+                //     }
+                // }
                 if(!isFull){
                     String[] arrGuestmenu = {"Lihat Daftar Film", "Pesan Kursi"};
                     do { 
@@ -141,9 +158,15 @@ public class AbsoluteCinema_1402024013{
                             printTheFilmList(arrFilm, arrAvailableSit);
                         }else if(menu == 2){
                             printTheFilmList(arrFilm, arrAvailableSit);
-                            System.out.println("Pilih nomor film: ");
+                            System.out.print("Pilih nomor film: ");
                             byte filmNumber = userInput.nextByte();
                             
+                            printTheSitView(arrSitNumber);
+                            System.out.print("Pilih nomor kursi: ");
+                            byte sitNumber = userInput.nextByte();
+                        }else if(menu == 0){
+                            isLogout = true;
+                            System.out.println("Anda telah logout.");
                         }
                     } while (menu == 1 || menu == 2);
                 }else{
@@ -151,6 +174,11 @@ public class AbsoluteCinema_1402024013{
                 }
             }
         } while (isLogout);
+    }
+
+    
+    public static void main(String[] args){
+        temp();
     }
 
 
@@ -191,7 +219,14 @@ public class AbsoluteCinema_1402024013{
                 }
             }
     }
-    public static void printTheAvailableSit(int availableSit){
+    public static void printTheSitView(String[][] arrSitNumber){
+        System.out.println("Kursi tersedia: ");
+        for(int i = 0 ; i < 5 ; i++){
+            for(int j = 0 ; j < 10 ; j++){
+                System.out.print(arrSitNumber[i][j] + " ");
+            }
+            System.out.println();
+        }
         
     }
 }
