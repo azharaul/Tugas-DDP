@@ -10,8 +10,16 @@ public class AbsoluteCinema_1402024013 {
         boolean isLogout = false;
         String newFilm;
         String[] arrGuest = new String[5];
-        String[] arrFilm = {"5 cm", "Your Name", "Twenty Five Twenty One", "La La Land"};
-        int[] arrAvailableSit = {50, 50, 50, 50};
+        String[] arrFilm = new String[5];
+        arrFilm[0] = "5 cm";
+        arrFilm[1] = "Your Name";
+        arrFilm[2] = "Twenty Five Twenty One";
+        arrFilm[3] = "La La Land";
+        int[] arrAvailableSit = new int[5];
+        arrAvailableSit[0] = 50;
+        arrAvailableSit[1] = 50;
+        arrAvailableSit[2] = 50;
+        arrAvailableSit[3] = 50;
         boolean[][] arrSitNumber = new boolean[100][50];
         printTheMainTitle("Azhar Aulia Priatna", "1402024013");
         Scanner userInput = new Scanner(System.in);
@@ -23,6 +31,7 @@ public class AbsoluteCinema_1402024013 {
                 System.out.print("Masukan password: ");
                 String inputPassword = userInput.next();
                 if (inputPassword.equals("admin")) {
+                    System.out.println("Selamat datang kembali, " + InputUsername + "!");
                     String[] arrAdminMenu = {"Lihat Daftar Film", "Tambah Film", "Edit Film", "Hapus Film"};
                     do {
                         printTheAdminMenu(arrAdminMenu);
@@ -32,10 +41,6 @@ public class AbsoluteCinema_1402024013 {
                         if (menu == 1) {
                             printTheFilmList(arrFilm, arrAvailableSit);
                         } else if (menu == 2) {
-                            System.out.print("Masukan nama film baru: ");
-                            newFilm = new Scanner(System.in).nextLine();
-
-                            //cek apakah indexnya penuh
                             boolean isFull = true;
                             for (int i = 0; i < arrFilm.length; i++) {
                                 if (arrFilm[i] == null) {
@@ -43,27 +48,19 @@ public class AbsoluteCinema_1402024013 {
                                     break;
                                 }
                             }
-
-                            //jika penuh maka ukuran arraynya di resize
-                            if (isFull) {
-                                String[] arrFilmTemp = arrFilm;
-                                int[] arrAvailableSitTemp = arrAvailableSit;
-                                arrFilm = new String[arrFilm.length + 1];
-                                arrAvailableSit = new int[arrAvailableSit.length + 1];
-                                for (int i = 0; i < arrFilmTemp.length; i++) {
-                                    arrFilm[i] = arrFilmTemp[i];
-                                    arrAvailableSit[i] = arrAvailableSitTemp[i];
+                            if(isFull){
+                                System.out.println("Maksimal film telah tercapai. Tidak bisa menambahkan film baru.");
+                            }else{
+                                System.out.print("Masukan nama film baru: ");
+                                newFilm = new Scanner(System.in).nextLine();
+                                for (int i = 0; i < arrFilm.length; i++) {
+                                    if (arrFilm[i] == null) {
+                                        arrFilm[i] = newFilm;
+                                        arrAvailableSit[i] = 50;
+                                    }
                                 }
+                                System.out.println("Film " + newFilm + " berhasil ditambahkan.");
                             }
-
-                            //tambahkan ke posisi yang data array nya null
-                            for (int i = 0; i < arrFilm.length; i++) {
-                                if (arrFilm[i] == null) {
-                                    arrFilm[i] = newFilm;
-                                    arrAvailableSit[i] = 50;
-                                }
-                            }
-                            System.out.println("Film " + newFilm + " berhasil ditambahkan.");
                             isLogout = false;
 
                             //tambah film
@@ -114,7 +111,6 @@ public class AbsoluteCinema_1402024013 {
                     isLogout = true;
                 }
 
-                
             } else {
                 boolean isUserExists = false;
                 for (int i = 0; i < guestCount; i++) {
@@ -167,12 +163,10 @@ public class AbsoluteCinema_1402024013 {
                         }
                     } while (menu == 1 || menu == 2);
                 } else {
-
                     if (guestCount < 5) {
                         arrGuest[guestCount] = InputUsername;
                         guestCount++;
                         System.out.println(InputUsername + " berhasil didaftarkan.");
-                      
                         System.out.println("Selamat datang, " + InputUsername + "!");
                         String[] arrGuestmenu = {"Lihat Daftar Film", "Pesan Kursi"};
                         do {
@@ -194,13 +188,11 @@ public class AbsoluteCinema_1402024013 {
                                     if (i % 10 == 0) {
                                         System.out.println();
                                     }
-
                                 }
                                 boolean isBooked = false;
                                 while (!isBooked) {
                                     System.out.print("Pilih nomor kursi: ");
                                     int sitNumber = userInput.nextInt();
-
                                     if (sitNumber < 1 || sitNumber > 50) {
                                         System.out.println("Nomor kursi tidak valid. Silakan pilih kursi antara 1 dan 50.");
                                     } else if (arrSitNumber[filmNumber][sitNumber - 1]) {
@@ -224,6 +216,7 @@ public class AbsoluteCinema_1402024013 {
             }
         } while (isLogout);
     }
+
     public static void printTheMainTitle(String name, String npm) {
         System.out.println("=====================================================");
         System.out.println("---------------Program Absolute Cinema---------------");
@@ -258,5 +251,8 @@ public class AbsoluteCinema_1402024013 {
                 System.out.println(no + ". " + filmName + " (Kursi tersedia: " + availableSit + ")");
             }
         }
+    }
+    public static void printTheAvailabelSit(boolean[][] arrSitNumber){
+        
     }
 }
