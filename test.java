@@ -7,10 +7,9 @@ import java.util.Scanner;
 
 public class test {
 
-    // static 
-    // static 
 
-    public static void temp() {
+
+    public static void main(String[] args) {
         byte menu = 0;
         int guestCount = 0;
         boolean isLogout = false;
@@ -229,11 +228,6 @@ public class test {
                 
             }
         } while (isLogout);
-    }
-
-
-    public static void main(String[] args) {
-        temp();
     }
 
     public static void printTheMainTitle(String name, String npm) {
